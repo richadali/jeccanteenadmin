@@ -27,7 +27,7 @@ async function authenticate()
   var fid  = document.getElementById('fid').value;
   var credit  = document.getElementById('credit').value;
 
-  ()=>{
+  
   await setDoc(doc(db,"faculty",fid), {
     name: fname,
     department: department,
@@ -41,5 +41,5 @@ async function authenticate()
     alert("Data Submitted Sucessfully");
   });
 
-}
+
 }
