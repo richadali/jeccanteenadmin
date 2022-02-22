@@ -16,6 +16,7 @@ apiKey: "AIzaSyC4Tu-_ZWxpgW3dV9qFVdxf9W_b4szEqYw",
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore();
 
 
@@ -31,6 +32,8 @@ async function authenticate()
 
   const storageRef = ref(storage, 'images/'+filename);
   const uploadTask = uploadBytesResumable(storageRef, file);
+
+  
   uploadTask.on('state_changed',
   (snapshot) => {
     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded

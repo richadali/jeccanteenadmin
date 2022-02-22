@@ -123,7 +123,7 @@ if(!isset($_SESSION['id']))
   });
 
   document.getElementById("DelModBtn").addEventListener("click", async () => {
-    var answer = window.confirm("Save data?");
+    var answer = window.confirm("Delete data?");
     
     if (answer) {
       var item = document.getElementById("NameMod").value;

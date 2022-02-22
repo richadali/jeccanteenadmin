@@ -37,7 +37,12 @@ async function authenticate() {
 
   const querySnapshot = await getDocs(q);
   if (querySnapshot.empty) {
-    alert("invalid ID or password");
+    swal({
+		  title: "Login Failure",
+		  text: "Invalid Email or Password",
+		  icon: "error",
+		  button: "Retry",
+		});
   } else {
     //window.location.href = "home.php";
     document.getElementById("userID").value = email;

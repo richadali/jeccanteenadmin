@@ -38,7 +38,12 @@ async function authenticate()
     credit: parseInt(credit,10)
   })
   .then(()=>{
-    alert("Data Submitted Sucessfully");
+		swal({
+		  title: "SUCCESS",
+		  text: "Faculty Added Sucessfully",
+		  icon: "success",
+		  button: "OK",
+		});
   });
 
 
