@@ -5,7 +5,7 @@ if (isset($_POST['userID'])) {
 }
 if (isset($_SESSION['id']))
 {
-	header("location:items.php");
+	header("location:home.php");
 }
 ?>
 

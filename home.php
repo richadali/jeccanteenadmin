@@ -1,5 +1,10 @@
 
-<?php include 'nav.php' ; ?>
+<?php include 'nav.php' ;
+session_start();
+if(!isset($_SESSION['id']))
+{
+  header('location: index.php');
+} ?>
 <head>
 </head>
 <!-- Overlay effect when opening sidebar on small screens -->
