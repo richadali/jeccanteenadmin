@@ -57,7 +57,7 @@ if(!isset($_SESSION['id']))
       </div>
       <div class="modal-footer">
         <button type="button" id="UpdateModBtn" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary">Save changes</button>
-        <button type="button" id="DelModBtn" class="btn btn-danger" onclick="DelItem()">Delete item</button>
+        <button type="button" id="DelModBtn" class="btn btn-danger">Delete item</button>
       </div>
     </div>
   </div>
@@ -82,6 +82,7 @@ if(!isset($_SESSION['id']))
     getDocs,
     setDoc,
     updateDoc,
+    deleteDoc,
     collection,
     onSnapshot
   } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
@@ -120,6 +121,18 @@ if(!isset($_SESSION['id']))
 
     location.reload();
   });
+
+  document.getElementById("DelModBtn").addEventListener("click", async () => {
+    var answer = window.confirm("Save data?");
+    
+    if (answer) {
+      var item = document.getElementById("NameMod").value;
+
+      await deleteDoc(doc(db, "menu", item));
+
+      location.reload();
+    }
+});
 
 
   const q = query(collection(db, "menu"));
