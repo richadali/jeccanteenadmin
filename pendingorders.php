@@ -7,68 +7,32 @@ if(!isset($_SESSION['id']))
 }
 
 ?>
-<head>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</head>
-
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 <header class="w3-container" style="padding-top:22px">
-    <h4><b><i class="fa fa-list " aria-hidden="true"></i>  All Registered Faculties</b></h4>
+    <h4><b><i class="fa fa-list " aria-hidden="true"></i>  All Pending Orders</b></h4>
   </header>
 <center>
 <div style="padding-top: 50px; font-family: 'Roboto', sans-serif;"></div>
 <table class="w3-table-all" style="width: 80%;font-family: 'Roboto', sans-serif;"" >
 <thead>
   <tr class="w3-green">
-    <th>Name</th>
-    <th>FID</th>
-    <th>Department</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Credit Balance</th>
-    <th>View</th>
+    <th>Date</th>
+    <th>Item Name</th>
+    <th>Ordered By</th>
+    <th>Order ID</th>
+    <th>Payment</th>
+    <th>Total</th>
   </tr>
   </thead>
   <tbody id="myTable">
   </tbody>
 </table>
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 </div>
 </center>
-<!-- Button trigger modal -->
 </div>
-
-
-
-
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
@@ -89,7 +53,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 
 
-const q = query(collection(db, "faculty"));
+const q = query(collection(db, "faculty.order"), where("status", "==", 'pending'));
+console.log(q);
 const unsubscribe = onSnapshot(q, (snapshot) => {
 
 var table = document.getElementById("myTable");
@@ -110,7 +75,7 @@ snapshot.docChanges().forEach((change) => {
       cell4.innerHTML = change.doc.data().email;
       cell5.innerHTML = change.doc.data().phone;
       cell6.innerHTML = "₹"+change.doc.data().credit;
-      cell7.innerHTML = '<button class="w3-round-small w3-btn w3-indigo w3-medium" data-toggle="modal" data-target="#exampleModalCenter" > View</button>';
+      cell7.innerHTML = "<button class='w3-btn w3-indigo w3-medium w3-round'>View</button>";
     i+=1;
   } 
   });
