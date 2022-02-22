@@ -46,7 +46,7 @@
         <input class="w3-input w3-border" type="text" id="PriceMod" required>
       </div>
       <div class="modal-footer">
-        <button type="button" id="UpdateModBtn" class="btn btn-primary" onclick="UpdateItem()">Save changes</button>
+        <button type="button" id="UpdateModBtn" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary">Save changes</button>
         <button type="button" id="DelModBtn" class="btn btn-danger" onclick="DelItem()">Delete item</button>
       </div>
     </div>
@@ -71,6 +71,7 @@
     getDoc,
     getDocs,
     setDoc,
+    updateDoc,
     collection,
     onSnapshot
   } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
@@ -96,6 +97,20 @@
   const db = getFirestore();
   const storage = getStorage();
 
+  document.getElementById("UpdateModBtn").addEventListener("click", async () => {
+
+    var item = document.getElementById("NameMod").value;
+    var newPrice = document.getElementById("PriceMod").value;
+
+    const itemRef = doc(db, "menu", item);
+
+    await updateDoc(itemRef, {
+      price: newPrice
+    });
+
+    location.reload();
+  });
+
 
   const q = query(collection(db, "menu"));
   const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -103,7 +118,7 @@
     var table = document.getElementById("myTable");
     var i = 0;
 
-    function FillTboxes(i,name,price) {
+    function FillTboxes(i, name, price) {
       document.getElementById('NameMod').value = name;
       document.getElementById('PriceMod').value = price;
     }
@@ -128,8 +143,8 @@
             cell4.innerHTML = "₹" + change.doc.data().price;
             cell5.innerHTML = '<button class="w3-round-small w3-btn w3-purple w3-medium" data-toggle="modal" data-target="#exampleModalCenter"  id="editBtn' + i + '"><i class="fa fa-pencil-square-o"></i> / <i class="fa fa-trash"></i></button>';
 
-            var editBtnRef = document.getElementById("editBtn" + i); 
-            editBtnRef.addEventListener("click", () => FillTboxes(editBtnRef.id,change.doc.data().name,change.doc.data().price));
+            var editBtnRef = document.getElementById("editBtn" + i);
+            editBtnRef.addEventListener("click", () => FillTboxes(editBtnRef.id, change.doc.data().name, change.doc.data().price));
             i += 1;
           })
           .catch((error) => {});
@@ -137,14 +152,14 @@
       }
     });
   });
-  
-  function UpdateItem(){
-    const washingtonRef = doc(db, "menu", );
 
-    // Set the "capital" field of the city 'DC'
-    await updateDoc(washingtonRef, {
-      capital: true
-    });
-    
-  }
+  // function UpdateItem(){
+  //   const washingtonRef = doc(db, "menu", );
+
+  //   // Set the "capital" field of the city 'DC'
+  //   await updateDoc(washingtonRef, {
+  //     capital: true
+  //   });
+
+  // }
 </script>
