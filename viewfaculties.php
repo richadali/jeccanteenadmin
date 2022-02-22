@@ -108,7 +108,7 @@ if (!isset($_SESSION['id'])) {
 
     var table = document.getElementById("myTable");
     var i = 0;
-    snapshot.docChanges().forEach(async (change) => {
+    snapshot.docChanges().forEach((change) => {
       if (change.type === "added") {
         var row = table.insertRow(i);
         var cell1 = row.insertCell(0);
@@ -125,42 +125,41 @@ if (!isset($_SESSION['id'])) {
         cell4.innerHTML = change.doc.data().email;
         cell5.innerHTML = change.doc.data().phone;
         cell6.innerHTML = "₹" + change.doc.data().credit;
-        cell8.innerHTML = '<button class="w3-round-small w3-btn w3-indigo w3-medium" data-toggle="modal" data-target="#exampleModalCenter" id="btn' + i + '"> View</button>';
-        
-        const docRef = doc(db, "faculty/"+change.doc.data().fid+"/orders/orderId");
-        const docSnap = await getDoc(docRef);
+        cell8.innerHTML = '<button class="w3-round-small w3-btn w3-indigo w3-medium" data-toggle="modal" data-target="#exampleModalCenter" id="btn'+i+'"> View</button>';
 
-        if(docSnap.exists())
-        {
-          cell7.innerHTML = docSnap.data().status;
+        const docRef = doc(db, "faculty/" + change.doc.data().fid + "/orders/orderId");
+
+        var docSnap;
+        fetch();
+        async function fetch() {
+          docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            cell7.innerHTML = docSnap.data().status;
+          } else {
+            cell7.innerHTML = '---';
+          }
         }
-        else
-        {
-          cell7.innerHTML = 'N/A';
-        }
 
-
-        document.getElementById("btn" + i).addEventListener("click", async() => {
+        document.getElementById("btn"+i).addEventListener("click", () => {
           var element = document.getElementById('popupText');
 
 
           if (docSnap.exists()) {
             element.innerHTML = `
-            Date: `+docSnap.data().date+`<br>
-            Item Name: `+docSnap.data().itemname+`<br>
-            Order ID: `+docSnap.data().oid+`<br>
-            Payment: `+docSnap.data().payment+`<br>
-            Status: `+docSnap.data().status+`<br>
-            Total: `+docSnap.data().total+`<br>
+            Date: ` + docSnap.data().date + `<br>
+            Item Name: ` + docSnap.data().itemname + `<br>
+            Order ID: ` + docSnap.data().oid + `<br>
+            Payment: ` + docSnap.data().payment + `<br>
+            Status: ` + docSnap.data().status + `<br>
+            Total: ` + docSnap.data().total + `<br>
             `;
-            document.getElementById("saveBtn").addEventListener(("click"),async()=>{
+            document.getElementById("saveBtn").addEventListener(("click"), async () => {
               await updateDoc(docRef, {
-                status:"Completed"
+                status: "Completed"
               });
               location.reload();
             })
-          }
-          else{
+          } else {
             element.innerHTML = 'NO ORDERS AVAILABLE!';
           }
         });
