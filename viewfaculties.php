@@ -32,6 +32,7 @@ if (!isset($_SESSION['id'])) {
       <th>Email</th>
       <th>Phone</th>
       <th>Credit Balance</th>
+      <th>Status</th>
       <th>View</th>
       </tr>
       </thead>
@@ -107,7 +108,7 @@ if (!isset($_SESSION['id'])) {
 
     var table = document.getElementById("myTable");
     var i = 0;
-    snapshot.docChanges().forEach((change) => {
+    snapshot.docChanges().forEach(async (change) => {
       if (change.type === "added") {
         var row = table.insertRow(i);
         var cell1 = row.insertCell(0);
@@ -117,19 +118,31 @@ if (!isset($_SESSION['id'])) {
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);
         var cell7 = row.insertCell(6);
+        var cell8 = row.insertCell(7);
         cell1.innerHTML = change.doc.data().name;
         cell2.innerHTML = change.doc.data().fid;
         cell3.innerHTML = change.doc.data().department;
         cell4.innerHTML = change.doc.data().email;
         cell5.innerHTML = change.doc.data().phone;
         cell6.innerHTML = "₹" + change.doc.data().credit;
-        cell7.innerHTML = '<button class="w3-round-small w3-btn w3-indigo w3-medium" data-toggle="modal" data-target="#exampleModalCenter" id="btn' + i + '"> View</button>';
+        cell8.innerHTML = '<button class="w3-round-small w3-btn w3-indigo w3-medium" data-toggle="modal" data-target="#exampleModalCenter" id="btn' + i + '"> View</button>';
+        
+        const docRef = doc(db, "faculty/"+change.doc.data().fid+"/orders/orderId");
+        const docSnap = await getDoc(docRef);
+
+        if(docSnap.exists())
+        {
+          cell7.innerHTML = docSnap.data().status;
+        }
+        else
+        {
+          cell7.innerHTML = 'N/A';
+        }
+
+
         document.getElementById("btn" + i).addEventListener("click", async() => {
           var element = document.getElementById('popupText');
 
-          const docRef = doc(db, "faculty/"+change.doc.data().fid+"/orders/orderId");
-
-          const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
             element.innerHTML = `
