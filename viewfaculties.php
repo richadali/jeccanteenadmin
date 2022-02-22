@@ -45,7 +45,7 @@ if (!isset($_SESSION['id'])) {
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Order Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -55,7 +55,7 @@ if (!isset($_SESSION['id'])) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" id="saveBtn" class="btn btn-primary">Mark Completed</button>
           </div>
         </div>
       </div>
@@ -82,6 +82,7 @@ if (!isset($_SESSION['id'])) {
     getDoc,
     getDocs,
     setDoc,
+    updateDoc,
     collection,
     onSnapshot,
   } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
@@ -139,9 +140,15 @@ if (!isset($_SESSION['id'])) {
             Status: `+docSnap.data().status+`<br>
             Total: `+docSnap.data().total+`<br>
             `;
+            document.getElementById("saveBtn").addEventListener(("click"),async()=>{
+              await updateDoc(docRef, {
+                status:"Completed"
+              });
+              location.reload();
+            })
           }
           else{
-            element.innerHTML = '';
+            element.innerHTML = 'NO ORDERS AVAILABLE!';
           }
         });
         //console.log(db.collection("faculty/"+change.doc.data().fid+"/orders").get());
