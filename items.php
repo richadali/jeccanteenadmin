@@ -137,4 +137,14 @@
       }
     });
   });
+  
+  function UpdateItem(){
+    const washingtonRef = doc(db, "menu", );
+
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(washingtonRef, {
+      capital: true
+    });
+    
+  }
 </script>
