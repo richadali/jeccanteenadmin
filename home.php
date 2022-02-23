@@ -22,7 +22,7 @@
         <div class="w3-left"><i class="fa fa-list w3-xxxlarge"></i></div>
         
         <div class="w3-right">
-          <h3>    </h3>
+          <h3 id="itemCount"></h3> 
         </div>
         <div class="w3-clear"></div>
         <h4>All Items</h4>
@@ -53,7 +53,7 @@
       </div></a>
     </div>
     <div class="w3-quarter w3-padding">
-      <a href="orders.php" style="text-decoration: none">
+      <a href="completedorders.php" style="text-decoration: none">
       <div class="w3-container w3-orange w3-text-white w3-padding-16 w3-hover-shadow">
          
         <div class="w3-left"><i class="fa fa-check-square-o w3-xxxlarge"></i></div>
@@ -90,6 +90,15 @@ function w3_close() {
   mySidebar.style.display = "none";
   overlayBg.style.display = "none";
 }
+
+const q = query(collection(db, "menu"));
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    var i = 0;
+    snapshot.docChanges().forEach((change) => {
+      i+=1;
+    });
+    document.getElementById("itemCount").innerHTML = i;
+    });
 </script>
 
 </body>

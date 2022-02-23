@@ -20,7 +20,6 @@ include 'nav.php';
     <th>Order ID</th>
     <th>Payment</th>
     <th>Total</th>
-    <th></th>
   </tr>
   </thead>
   <tbody id="myTable">
@@ -32,7 +31,7 @@ include 'nav.php';
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getFirestore, query, where, doc, getDoc, getDocs,setDoc, collection, onSnapshot, updateDoc, orderBy } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+import { getFirestore, query, where, doc, getDoc, getDocs,setDoc, collection, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyC4Tu-_ZWxpgW3dV9qFVdxf9W_b4szEqYw",
@@ -48,8 +47,9 @@ apiKey: "AIzaSyC4Tu-_ZWxpgW3dV9qFVdxf9W_b4szEqYw",
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 
-const q = query(collection(db, "order"), where("status", "==", 'Pending'), orderBy("oid","desc"));
 
+const q = query(collection(db, "order"), where("status", "==", 'Completed'));
+console.log(q);
 const unsubscribe = onSnapshot(q, (snapshot) => {
 
 var table = document.getElementById("myTable");
@@ -64,7 +64,7 @@ snapshot.docChanges().forEach((change) => {
       var cell5 = row.insertCell(4);
       var cell6 = row.insertCell(5);
       var cell7 = row.insertCell(6);
-      var cell8 = row.insertCell(7);
+     
       cell1.innerHTML = i+1;
       cell2.innerHTML = change.doc.data().date;
       cell3.innerHTML = change.doc.data().item;
@@ -83,16 +83,7 @@ snapshot.docChanges().forEach((change) => {
       cell5.innerHTML = change.doc.data().oid;
       cell6.innerHTML = change.doc.data().payment;
       cell7.innerHTML = "₹"+change.doc.data().total;
-      cell8.innerHTML = "<button id='btn"+i+"' class='w3-btn w3-indigo w3-medium w3-round'>Mark Completed</button>";
 
-      document.getElementById("btn"+i).addEventListener(("click"), async()=>{
-        const ref= doc(db,"order",change.doc.data().oid);
-
-        await updateDoc(ref,{
-          status: "Completed"
-        });
-        location.reload();
-      });
 
     i+=1;
   } 
