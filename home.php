@@ -41,27 +41,27 @@
       </div></a>
     </div>
     <div class="w3-quarter w3-padding">
-      <a href="addfaculty.php" style="text-decoration: none">
+    <a href="pendingorders.php" style="text-decoration: none">
       <div class="w3-container w3-teal w3-padding-16 w3-hover-shadow">
         
-        <div class="w3-left"><i class="fa fa-plus-circle w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="fa fa-clock-o w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3>   </h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>Add Faculty</h4>
+        <h4>Pending Orders</h4>
       </div></a>
     </div>
     <div class="w3-quarter w3-padding">
-      <a href="viewfaculties.php" style="text-decoration: none">
+      <a href="orders.php" style="text-decoration: none">
       <div class="w3-container w3-orange w3-text-white w3-padding-16 w3-hover-shadow">
          
-        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="fa fa-check-square-o w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3>    </h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>View Faculties</h4>
+        <h4>Completed Orders</h4>
       </div></a>
     </div>
   </div>

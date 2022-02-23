@@ -14,7 +14,7 @@ include 'nav.php';
 <thead>
   <tr class="w3-green">
     <th>Date</th>
-    <th>Item Name</th>
+    <th>Items</th>
     <th>Ordered By</th>
     <th>Order ID</th>
     <th>Payment</th>
