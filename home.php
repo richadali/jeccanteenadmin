@@ -137,27 +137,41 @@
     var q = query(collection(db, "menu"));
     onSnapshot(q, (snapshot) => {
       var i = 0;
-      snapshot.docChanges().forEach((change) => {
+      snapshot.forEach((change) => {
         i += 1;
       });
       document.getElementById("itemCount").innerHTML = i;
     });
 
+
+    var pFresh = 0;
+    var cFresh = 0;
+
+
     var q = query(collection(db, "order"), where("status", "==", "Pending"));
     onSnapshot(q, (snapshot) => {
       var i = 0;
-      snapshot.docChanges().forEach((change) => {
+      var fresh = 0;
+      snapshot.forEach((change) => {
         i += 1;
       });
+      snapshot.docChanges().forEach((change) => {
+        fresh += 1;
+      });
       document.getElementById("pendingCount").innerHTML = i;
+      if(fresh>0 && fresh!=i)
+      {
+        document.getElementById("pendingCount").innerHTML += " (+"+fresh+")"; 
+      }
     });
 
     var q = query(collection(db, "order"), where("status", "==", "Completed"));
     onSnapshot(q, (snapshot) => {
       var i = 0;
-      snapshot.docChanges().forEach((change) => {
+      snapshot.forEach((change) => {
         i += 1;
       });
+
       document.getElementById("completedCount").innerHTML = i;
     });
   </script>
