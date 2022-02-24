@@ -20,14 +20,15 @@ include 'nav.php'; ?>
     <table class="w3-table-all" style="width: 80%;font-family: 'Roboto', sans-serif;"" >
 <thead>
   <tr class=" w3-green">
+     <th>Slno</th>
       <th>Name</th>
       <th>FID</th>
       <th>Department</th>
       <th>Email</th>
       <th>Phone</th>
-      <th>Credit Balance</th>
-      <th>Status</th>
-      <th>View</th>
+      <!-- <th>Credit Balance</th> -->
+      <!-- <th>Status</th>
+      <th>View</th> -->
       </tr>
       </thead>
       <tbody id="myTable">
@@ -111,52 +112,54 @@ include 'nav.php'; ?>
         var cell4 = row.insertCell(3);
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);
-        var cell7 = row.insertCell(6);
-        var cell8 = row.insertCell(7);
-        cell1.innerHTML = change.doc.data().name;
-        cell2.innerHTML = change.doc.data().fid;
-        cell3.innerHTML = change.doc.data().department;
-        cell4.innerHTML = change.doc.data().email;
-        cell5.innerHTML = change.doc.data().phone;
-        cell6.innerHTML = "₹" + change.doc.data().credit;
-        cell8.innerHTML = '<button class="w3-round-small w3-btn w3-indigo w3-medium" data-toggle="modal" data-target="#exampleModalCenter" id="btn'+i+'"> View</button>';
+        // var cell6 = row.insertCell(5);
+        // var cell7 = row.insertCell(6);
+        // var cell8 = row.insertCell(7);
+        cell1.innerHTML = i+1;
+        cell2.innerHTML = change.doc.data().name;
+        cell3.innerHTML = change.doc.data().fid;
+        cell4.innerHTML = change.doc.data().department;
+        cell5.innerHTML = change.doc.data().email;
+        cell6.innerHTML = change.doc.data().phone;
+        // cell6.innerHTML = "₹" + change.doc.data().credit;
+        // cell8.innerHTML = '<button class="w3-round-small w3-btn w3-indigo w3-medium" data-toggle="modal" data-target="#exampleModalCenter" id="btn'+i+'"> View</button>';
 
-        const docRef = doc(db, "faculty/" + change.doc.data().fid + "/orders/orderId");
+        // const docRef = doc(db, "faculty/" + change.doc.data().fid + "/orders/orderId");
 
-        var docSnap;
-        fetch();
-        async function fetch() {
-          docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            cell7.innerHTML = docSnap.data().status;
-          } else {
-            cell7.innerHTML = '---';
-          }
-        }
+        // var docSnap;
+        // fetch();
+        // async function fetch() {
+        //   docSnap = await getDoc(docRef);
+        //   if (docSnap.exists()) {
+        //     cell7.innerHTML = docSnap.data().status;
+        //   } else {
+        //     cell7.innerHTML = '---';
+        //   }
+        // }
 
-        document.getElementById("btn"+i).addEventListener("click", () => {
-          var element = document.getElementById('popupText');
+        // document.getElementById("btn"+i).addEventListener("click", () => {
+        //   var element = document.getElementById('popupText');
 
 
-          if (docSnap.exists()) {
-            element.innerHTML = `
-            Date: ` + docSnap.data().date + `<br>
-            Item Name: ` + docSnap.data().itemname + `<br>
-            Order ID: ` + docSnap.data().oid + `<br>
-            Payment: ` + docSnap.data().payment + `<br>
-            Status: ` + docSnap.data().status + `<br>
-            Total: ` + docSnap.data().total + `<br>
-            `;
-            document.getElementById("saveBtn").addEventListener(("click"), async () => {
-              await updateDoc(docRef, {
-                status: "Completed"
-              });
-              location.reload();
-            })
-          } else {
-            element.innerHTML = 'NO ORDERS AVAILABLE!';
-          }
-        });
+        //   if (docSnap.exists()) {
+        //     element.innerHTML = `
+        //     Date: ` + docSnap.data().date + `<br>
+        //     Item Name: ` + docSnap.data().itemname + `<br>
+        //     Order ID: ` + docSnap.data().oid + `<br>
+        //     Payment: ` + docSnap.data().payment + `<br>
+        //     Status: ` + docSnap.data().status + `<br>
+        //     Total: ` + docSnap.data().total + `<br>
+        //     `;
+        //     document.getElementById("saveBtn").addEventListener(("click"), async () => {
+        //       await updateDoc(docRef, {
+        //         status: "Completed"
+        //       });
+        //       location.reload();
+        //     })
+        //   } else {
+        //     element.innerHTML = 'NO ORDERS AVAILABLE!';
+        //   }
+        // });
         //console.log(db.collection("faculty/"+change.doc.data().fid+"/orders").get());
         i += 1;
 

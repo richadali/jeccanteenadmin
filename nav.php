@@ -61,7 +61,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="home.php" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-dashboard fa-fw"></i>  Home</a>
     <a href="additem.php" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cart-plus fa-fw"></i>  Add Item</a>
-    <a href="addfaculty.php" class="w3-bar-item w3-button w3-padding"><i class="fa fa-list fa-fw"></i>  View Items</a>
+    <a href="items.php" class="w3-bar-item w3-button w3-padding"><i class="fa fa-list fa-fw"></i>  View Items</a>
     <a href="addfaculty.php" class="w3-bar-item w3-button w3-padding"><i class="fa fa-plus-circle fa-fw"></i>  Add Faculty</a>
     <a href="viewfaculties.php" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  View Faculties</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>

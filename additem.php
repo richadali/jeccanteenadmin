@@ -36,7 +36,7 @@ td{
     <div class="w3-container w3-margin-bottom" >
      
         <div class=" w3-padding">
-    <div class="w3-container w3-green">
+    <div class="w3-container w3-padding w3-green">
       <h4>Enter Item Details</h4>
     </div>
     <div class="w3-container w3-white w3-padding-16">
