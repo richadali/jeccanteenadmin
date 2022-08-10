@@ -2,10 +2,6 @@
 ?>
 
 <head>
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
 </head>
 <!-- Overlay effect when opening sidebar on small screens -->
 
@@ -45,7 +41,7 @@
         </div>
       </a>
     </div>
-    <div id="pendingOrders" class="w3-quarter w3-padding animate__animated">
+    <div class="w3-quarter w3-padding">
       <a href="pendingorders.php" style="text-decoration: none">
         <div class="w3-container w3-teal w3-padding-16 w3-hover-shadow">
 
@@ -148,6 +144,9 @@
     });
 
 
+    var pFresh = 0;
+    var cFresh = 0;
+
 
     var q = query(collection(db, "order"), where("status", "==", "Pending"));
     onSnapshot(q, (snapshot) => {
@@ -159,17 +158,11 @@
       snapshot.docChanges().forEach((change) => {
         fresh += 1;
       });
-
       document.getElementById("pendingCount").innerHTML = i;
       if(fresh>0 && fresh!=i)
       {
-        document.getElementById("pendingCount").innerHTML += " *(new)"; 
-        var ele = document.getElementById('pendingOrders')
-        ele.classList.add('animate__tada');
-        ele.classList.add('animate__infinite');
-        ele.classList.add('infinite');
+        document.getElementById("pendingCount").innerHTML += " (+"+fresh+")"; 
       }
-      
     });
 
     var q = query(collection(db, "order"), where("status", "==", "Completed"));
@@ -181,7 +174,6 @@
 
       document.getElementById("completedCount").innerHTML = i;
     });
-
   </script>
 
 
